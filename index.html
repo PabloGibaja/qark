@@ -3,7 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
     <title>QArk - All your test results. One clear view.</title>
+    <meta name="description" content="QArk is a next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases. Get clear visual dashboards with CI/CD integration, pipeline automation, and comprehensive test analytics.">
+    <meta name="keywords" content="QA test results, dashboards, allure, charts, CI/CD integration, pipeline, docker, test automation, quality assurance, test analytics, selenium, pytest, jenkins, github actions, jira integration">
+    <meta name="author" content="QArk">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://qark.app/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="QArk - All your test results. One clear view.">
+    <meta property="og:description" content="Centralize test results from any programming language, automation framework, and manual test cases. Get clear, visual dashboards for every stakeholder.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qark.app/">
+    <meta property="og:image" content="https://qark.app/images/qark-dashboard-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="QArk">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QArk - All your test results. One clear view.">
+    <meta name="twitter:description" content="Centralize test results from any programming language, automation framework, and manual test cases.">
+    <meta name="twitter:image" content="https://qark.app/images/qark-dashboard-preview.jpg">
+    <meta name="twitter:site" content="@QArkApp">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "QArk",
+        "description": "Next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases",
+        "url": "https://qark.app",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2025-12-31",
+            "availability": "https://schema.org/InStock"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "QArk",
+            "url": "https://qark.app"
+        },
+        "featureList": [
+            "Universal Test Integration",
+            "Manager-Level Insights",
+            "Pipeline Integration",
+            "Jira Integration",
+            "Detailed Failure Analysis"
+        ],
+        "screenshot": "https://qark.app/images/qark-dashboard-preview.jpg"
+    }
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -49,6 +110,11 @@
         .dark .card-hover:hover {
             box-shadow: 0 20px 40px rgba(255,255,255,0.1);
         }
+        /* Cache control for images */
+        img {
+            cache-control: public, max-age=31536000;
+            expires: 1y;
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
@@ -57,7 +123,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold gradient-text">QArk</h1>
+                    <div class="text-2xl font-bold gradient-text">QArk</div>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#features" class="text-gray-600 dark:text-gray-300 hover:text-qark-blue transition-colors">Features</a>
@@ -99,11 +165,8 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left">
                     <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                        <span class="gradient-text">QArk</span>
+                        <span class="gradient-text">QArk - All your test results. One clear view.</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                        All your test results. One clear view.
-                    </p>
                     <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-2xl">
                         Centralize test results from any programming language, any automation framework, and manual test cases. Get clear, visual dashboards for every stakeholder.
                     </p>
