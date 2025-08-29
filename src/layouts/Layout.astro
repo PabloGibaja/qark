@@ -1,0 +1,114 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = "QArk is a next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases. Get clear visual dashboards with CI/CD integration, pipeline automation, and comprehensive test analytics.",
+  keywords = "QA test results, dashboards, allure, charts, CI/CD integration, pipeline, docker, test automation, quality assurance, test analytics, selenium, pytest, jenkins, github actions, jira integration",
+  ogImage = "https://qark.app/images/qark-dashboard-preview.jpg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Inicializar tema ANTES de que se renderice el contenido -->
+    <script is:inline>
+      // Prevenir flash de contenido sin estilo
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="QArk" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="QArk" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content="@QArkApp" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    
+    <!-- Devicons -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "QArk",
+        "description": "Next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases",
+        "url": "https://qark.app",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2025-12-31",
+            "availability": "https://schema.org/InStock"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "QArk",
+            "url": "https://qark.app"
+        },
+        "featureList": [
+            "Universal Test Integration",
+            "Manager-Level Insights",
+            "Pipeline Integration",
+            "Jira Integration",
+            "Detailed Failure Analysis"
+        ],
+        "screenshot": "https://qark.app/images/qark-dashboard-preview.jpg"
+    })} />
+    
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <slot />
+  </body>
+</html>
