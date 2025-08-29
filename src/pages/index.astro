@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+import '../styles/global.css';
+---
+
+<Layout title="QArk - Centraliza tus resultados de testing">
+  <!-- Navegación Sticky -->
+  <Navigation client:load />
+  
+
+  <!-- Hero Section -->
+  <Hero client:load />
+
+  <!-- Secciones temporales para testing del scroll -->
+  <section id="features" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Features</h2>
+      <p class="text-gray-600 dark:text-gray-300">Aquí irán las características...</p>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="py-20 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">How it Works</h2>
+      <p class="text-gray-600 dark:text-gray-300">Aquí irá cómo funciona...</p>
+    </div>
+  </section>
+
+  <section id="benefits" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Benefits</h2>
+      <p class="text-gray-600 dark:text-gray-300">Aquí irán las ventajas...</p>
+    </div>
+  </section>
+
+  <section id="pricing" class="py-20 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Pricing</h2>
+      <p class="text-gray-600 dark:text-gray-300">Aquí irán los precios...</p>
+    </div>
+  </section>
+
+  <section id="cta" class="py-20 px-4 bg-gradient-qark">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">Ready to get started?</h2>
+      <p class="text-blue-100 mb-8">Join thousands of teams already using QArk.</p>
+      <button class="bg-white text-qark-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+        Start Free Trial
+      </button>
+    </div>
+  </section>
+</Layout>
