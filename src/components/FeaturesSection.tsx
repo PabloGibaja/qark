@@ -215,29 +215,33 @@ const FeatureSubsection: React.FC<{
   const isEven = index % 2 === 0;
   
   return (
-    <div className={`grid lg:grid-cols-3 gap-12 items-center py-16 ${
+    <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center py-12 lg:py-16 ${
       isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
     } transition-all duration-700 ease-out`} style={{ transitionDelay: `${index * 200}ms` }}>
       
-      {/* Contenido de texto - 1/3 del ancho */}
-      <div className={`${isEven ? 'lg:order-1 lg:col-span-1' : 'lg:order-2 lg:col-span-1'} space-y-6`}>
+      {/* Contenido de texto - 1/3 del ancho en desktop, full width en móvil */}
+      <div className={`${
+        isEven 
+          ? 'lg:order-1 lg:col-span-1' 
+          : 'lg:order-2 lg:col-span-1'
+      } space-y-4 lg:space-y-6 text-center lg:text-left`}>
         <div>
-          <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 lg:mb-4 text-gray-900 dark:text-white">
             {feature.title}
           </h3>
-          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="text-base lg:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
             {feature.description}
           </p>
         </div>
         
         {/* Lista de highlights */}
-        <ul className="space-y-3" role="list" aria-label={`Características de ${feature.title}`}>
+        <ul className="space-y-2 lg:space-y-3" role="list" aria-label={`Características de ${feature.title}`}>
           {feature.highlights.map((highlight, idx) => (
-            <li key={idx} className="flex items-center space-x-3">
-              <div className="flex-shrink-0 w-5 h-5 bg-gradient-qark rounded-full flex items-center justify-center">
+            <li key={idx} className="flex items-center space-x-3 justify-center lg:justify-start">
+              <div className="flex-shrink-0 w-4 h-4 lg:w-5 lg:h-5 bg-gradient-qark rounded-full flex items-center justify-center">
                 <i className="fas fa-check text-white text-xs"></i>
               </div>
-              <span className="text-gray-700 dark:text-gray-300 font-medium">
+              <span className="text-sm lg:text-base text-gray-700 dark:text-gray-300 font-medium">
                 {highlight}
               </span>
             </li>
@@ -245,9 +249,9 @@ const FeatureSubsection: React.FC<{
         </ul>
         
         {/* CTA Button */}
-        <div className="pt-4">
+        <div className="pt-3 lg:pt-4">
           <button 
-            className="group bg-gradient-qark text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="group bg-gradient-qark text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg text-sm lg:text-base font-semibold hover:opacity-90 transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             aria-label={`Explorar más sobre ${feature.title}`}
           >
             Explorar más
@@ -256,9 +260,13 @@ const FeatureSubsection: React.FC<{
         </div>
       </div>
       
-      {/* Visual - 2/3 del ancho */}
-      <div className={`${isEven ? 'lg:order-2 lg:col-span-2' : 'lg:order-1 lg:col-span-2'}`}>
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
+      {/* Visual - 2/3 del ancho en desktop, full width en móvil */}
+      <div className={`${
+        isEven 
+          ? 'lg:order-2 lg:col-span-2' 
+          : 'lg:order-1 lg:col-span-2'
+      } mt-8 lg:mt-0`}>
+        <div className="bg-white dark:bg-gray-800 rounded-xl lg:rounded-2xl shadow-lg lg:shadow-xl p-4 lg:p-8 border border-gray-200 dark:border-gray-700">
           {renderFeatureVisual(feature)}
         </div>
       </div>
