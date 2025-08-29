@@ -238,70 +238,202 @@
             <div class="space-y-20">
                 <!-- Universal Test Integration -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Programming languages -->
                     <div>
-                        <h3 class="text-3xl font-bold mb-6 gradient-text">Universal Test Integration</h3>
+                        <h3 class="text-3xl font-bold mb-6 gradient-text">Support for multiple programming languages</h3>
                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                            Import results from any programming language, any automation framework, or manual testing. Instantly visualize them in one unified dashboard.
+                            Import results from any programming language, any automation framework, or manual testing
                         </p>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-java-plain text-2xl text-orange-500 mb-2"></i>
                                 <div class="text-sm font-medium">Java</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-python-plain text-2xl text-blue-500 mb-2"></i>
                                 <div class="text-sm font-medium">Python</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-javascript-plain text-2xl text-yellow-500 mb-2"></i>
                                 <div class="text-sm font-medium">JavaScript</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-csharp-plain text-2xl text-purple-500 mb-2"></i>
                                 <div class="text-sm font-medium">C#</div>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-php-plain text-2xl text-indigo-500 mb-2"></i>
                                 <div class="text-sm font-medium">PHP</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-ruby-plain text-2xl text-red-500 mb-2"></i>
                                 <div class="text-sm font-medium">Ruby</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="devicon-groovy-plain text-2xl text-blue-600 mb-2"></i>
                                 <div class="text-sm font-medium">Groovy</div>
                             </div>
-                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm">
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm" data-language-item>
                                 <i class="fas fa-clipboard-check text-2xl text-gray-500 mb-2"></i>
-                                <div class="text-sm font-medium">Manual</div>
+                                <div class="text-sm font-medium">Manual tests</div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                <div class="flex items-center">
-                                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                                    <span class="font-medium">Selenium Tests</span>
-                                </div>
-                                <span class="text-green-600 dark:text-green-400 text-sm">142 passed</span>
+                    <!-- Frameworks -->
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6 gradient-text">Majority of frameworks</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                            Compatible with all major testing frameworks and tools. Click on a programming language to see related frameworks.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="frameworks-grid">
+                            <!-- Java Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="java">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                <div class="flex items-center">
-                                    <i class="fas fa-flask text-blue-500 mr-3"></i>
-                                    <span class="font-medium">Pytest Suite</span>
-                                </div>
-                                <span class="text-blue-600 dark:text-blue-400 text-sm">89 passed</span>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="java">
+                                <i class="devicon-junit-plain text-2xl text-orange-600 mb-2"></i>
+                                <div class="text-sm font-medium">JUnit</div>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                <div class="flex items-center">
-                                    <i class="fas fa-hand-pointer text-purple-500 mr-3"></i>
-                                    <span class="font-medium">Manual Tests</span>
-                                </div>
-                                <span class="text-purple-600 dark:text-purple-400 text-sm">23 completed</span>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="java">
+                                <i class="fas fa-vial text-2xl text-red-500 mb-2"></i>
+                                <div class="text-sm font-medium">TestNG</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="java">
+                                <i class="fas fa-robot text-2xl text-blue-600 mb-2"></i>
+                                <div class="text-sm font-medium">Rest Assured</div>
+                            </div>
+                            
+                            <!-- Python Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="python">
+                                <i class="devicon-pytest-plain text-2xl text-blue-500 mb-2"></i>
+                                <div class="text-sm font-medium">Pytest</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="python">
+                                <i class="devicon-pytest-plain text-2xl text-blue-500 mb-2"></i>
+                                <div class="text-sm font-medium">Pytest-BDD</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="python">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="python">
+                                <i class="fas fa-flask text-2xl text-purple-500 mb-2"></i>
+                                <div class="text-sm font-medium">Unittest</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="python">
+                                <i class="fas fa-play text-2xl text-green-600 mb-2"></i>
+                                <div class="text-sm font-medium">Behave</div>
+                            </div>
+                            
+                            <!-- JavaScript Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="javascript">
+                                <i class="devicon-jest-plain text-2xl text-red-600 mb-2"></i>
+                                <div class="text-sm font-medium">Jest</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="javascript">
+                                <i class="devicon-mocha-plain text-2xl text-brown-600 mb-2"></i>
+                                <div class="text-sm font-medium">Mocha</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="javascript">
+                                <i class="fas fa-play-circle text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Cypress</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="javascript">
+                                <i class="fas fa-theater-masks text-2xl text-purple-600 mb-2"></i>
+                                <div class="text-sm font-medium">Playwright</div>
+                            </div>
+                            
+                            <!-- C# Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="csharp">
+                                <i class="fas fa-check-double text-2xl text-blue-500 mb-2"></i>
+                                <div class="text-sm font-medium">NUnit</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="csharp">
+                                <i class="fas fa-microscope text-2xl text-green-600 mb-2"></i>
+                                <div class="text-sm font-medium">MSTest</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="csharp">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="csharp">
+                                <i class="fas fa-cog text-2xl text-gray-600 mb-2"></i>
+                                <div class="text-sm font-medium">SpecFlow</div>
+                            </div>
+                            
+                            <!-- PHP Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="php">
+                                <i class="devicon-phpunit-plain text-2xl text-blue-600 mb-2"></i>
+                                <div class="text-sm font-medium">PHPUnit</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="php">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="php">
+                                <i class="fas fa-leaf text-2xl text-green-600 mb-2"></i>
+                                <div class="text-sm font-medium">Codeception</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="php">
+                                <i class="fas fa-bug text-2xl text-red-500 mb-2"></i>
+                                <div class="text-sm font-medium">Behat</div>
+                            </div>
+                            
+                            <!-- Ruby Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="ruby">
+                                <i class="devicon-rspec-original text-2xl text-red-600 mb-2"></i>
+                                <div class="text-sm font-medium">RSpec</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="ruby">
+                                <i class="fas fa-gem text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Minitest</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="ruby">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="ruby">
+                                <i class="fas fa-cucumber text-2xl text-green-600 mb-2"></i>
+                                <div class="text-sm font-medium">Cucumber</div>
+                            </div>
+                            
+                            <!-- Groovy Frameworks -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="groovy">
+                                <i class="fas fa-hammer text-2xl text-blue-600 mb-2"></i>
+                                <div class="text-sm font-medium">Spock</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="groovy">
+                                <i class="devicon-gradle-plain text-2xl text-green-600 mb-2"></i>
+                                <div class="text-sm font-medium">Geb</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="groovy">
+                                <i class="devicon-selenium-original text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Selenium</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="groovy">
+                                <i class="fas fa-robot text-2xl text-purple-600 mb-2"></i>
+                                <div class="text-sm font-medium">Rest Assured</div>
+                            </div>
+                            
+                            <!-- Manual Testing Tools -->
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="manual">
+                                <i class="fas fa-clipboard-check text-2xl text-gray-500 mb-2"></i>
+                                <div class="text-sm font-medium">Test Cases</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="manual">
+                                <i class="fas fa-bug text-2xl text-red-500 mb-2"></i>
+                                <div class="text-sm font-medium">Bug Reports</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="manual">
+                                <i class="fas fa-tasks text-2xl text-blue-500 mb-2"></i>
+                                <div class="text-sm font-medium">Test Plans</div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center shadow-sm framework-item" data-language="manual">
+                                <i class="fas fa-chart-line text-2xl text-green-500 mb-2"></i>
+                                <div class="text-sm font-medium">Reports</div>
                             </div>
                         </div>
                     </div>
@@ -869,3 +1001,225 @@
     </script>
 </body>
 </html>
+<script>
+    // Funcionalidad de filtrado de frameworks por lenguaje y carrusel
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleccionar específicamente los elementos de lenguajes de programación
+        const languageItems = document.querySelectorAll('[data-language-item]');
+        const frameworkItems = document.querySelectorAll('.framework-item');
+        let activeLanguage = null;
+        let carouselInterval = null;
+        let currentCarouselIndex = 0;
+        const frameworksPerPage = 4;
+        
+        console.log('Language items found:', languageItems.length);
+        console.log('Framework items found:', frameworkItems.length);
+        
+        // Mapeo de lenguajes a sus identificadores
+        const languageMap = {
+            'Java': 'java',
+            'Python': 'python', 
+            'JavaScript': 'javascript',
+            'C#': 'csharp',
+            'PHP': 'php',
+            'Ruby': 'ruby',
+            'Groovy': 'groovy',
+            'Manual tests': 'manual'
+        };
+        
+        // Función para mostrar/ocultar frameworks (modo estático)
+        function filterFrameworks(language) {
+            frameworkItems.forEach(item => {
+                if (language === null || item.dataset.language === language) {
+                    item.style.display = 'block';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0.3';
+                }
+            });
+        }
+        
+        // Función para el carrusel de frameworks
+        function showCarouselFrameworks() {
+            const totalFrameworks = frameworkItems.length;
+            if (totalFrameworks === 0) return;
+            
+            const totalPages = Math.ceil(totalFrameworks / frameworksPerPage);
+            
+            // Ocultar todos los frameworks primero
+            frameworkItems.forEach((item, index) => {
+                item.style.display = 'none';
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(100px)';
+            });
+            
+            // Mostrar los frameworks de la página actual
+            const startIndex = currentCarouselIndex * frameworksPerPage;
+            const endIndex = Math.min(startIndex + frameworksPerPage, totalFrameworks);
+            
+            for (let i = startIndex; i < endIndex; i++) {
+                const item = frameworkItems[i];
+                if (item) {
+                    item.style.display = 'block';
+                    
+                    // Animación de entrada con delay escalonado
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateX(0)';
+                        item.style.transition = 'all 0.5s ease-in-out';
+                    }, (i - startIndex) * 100);
+                }
+            }
+            
+            // Avanzar al siguiente grupo
+            currentCarouselIndex = (currentCarouselIndex + 1) % totalPages;
+        }
+        
+        // Función para iniciar el carrusel
+        function startCarousel() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+            }
+            
+            // Mostrar inmediatamente el primer grupo
+            showCarouselFrameworks();
+            
+            // Configurar el intervalo para cambiar cada 3 segundos
+            carouselInterval = setInterval(showCarouselFrameworks, 3000);
+        }
+        
+        // Función para detener el carrusel
+        function stopCarousel() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
+            
+            // Resetear estilos de transición
+            frameworkItems.forEach(item => {
+                if (item) {
+                    item.style.transition = '';
+                    item.style.transform = '';
+                }
+            });
+        }
+        
+        // Función para resaltar lenguaje activo
+        function highlightLanguage(activeItem) {
+            languageItems.forEach(item => {
+                if (item) {
+                    item.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                }
+            });
+            
+            if (activeItem) {
+                activeItem.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+            }
+        }
+        
+        // Si no encontramos elementos con data-language-item, usar el selector alternativo
+        if (languageItems.length === 0) {
+            const alternativeLanguageItems = document.querySelectorAll('.grid .bg-white.dark\\:bg-gray-700');
+            
+            alternativeLanguageItems.forEach(item => {
+                const textElement = item.querySelector('.text-sm.font-medium');
+                if (textElement && textElement.textContent) {
+                    const languageText = textElement.textContent.trim();
+                    const languageKey = languageMap[languageText];
+                    
+                    if (languageKey) {
+                        // Click effect
+                        item.addEventListener('click', function() {
+                            if (activeLanguage === languageKey) {
+                                // Deseleccionar si ya está activo - volver al carrusel
+                                activeLanguage = null;
+                                highlightLanguage(null);
+                                stopCarousel();
+                                currentCarouselIndex = 0;
+                                startCarousel();
+                            } else {
+                                // Seleccionar nuevo lenguaje - modo estático
+                                activeLanguage = languageKey;
+                                highlightLanguage(this);
+                                stopCarousel();
+                                filterFrameworks(languageKey);
+                            }
+                        });
+                        
+                        // Añadir cursor pointer
+                        item.style.cursor = 'pointer';
+                    }
+                }
+            });
+        } else {
+            // Usar los elementos con data-language-item
+            languageItems.forEach(item => {
+                const textElement = item.querySelector('.text-sm.font-medium');
+                if (textElement && textElement.textContent) {
+                    const languageText = textElement.textContent.trim();
+                    const languageKey = languageMap[languageText];
+                    
+                    if (languageKey) {
+                        // Click effect
+                        item.addEventListener('click', function() {
+                            if (activeLanguage === languageKey) {
+                                // Deseleccionar si ya está activo - volver al carrusel
+                                activeLanguage = null;
+                                highlightLanguage(null);
+                                stopCarousel();
+                                currentCarouselIndex = 0;
+                                startCarousel();
+                            } else {
+                                // Seleccionar nuevo lenguaje - modo estático
+                                activeLanguage = languageKey;
+                                highlightLanguage(this);
+                                stopCarousel();
+                                filterFrameworks(languageKey);
+                            }
+                        });
+                        
+                        // Añadir cursor pointer
+                        item.style.cursor = 'pointer';
+                    }
+                }
+            });
+        }
+        
+        // Añadir estilos CSS para las transiciones suaves
+        const style = document.createElement('style');
+        style.textContent = `
+            .framework-item {
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            }
+            
+            .framework-item:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Inicializar con carrusel solo si hay frameworks
+        if (frameworkItems.length > 0) {
+            startCarousel();
+        }
+        
+        // Pausar carrusel cuando el usuario hace hover sobre el área de frameworks
+        const frameworksGrid = document.getElementById('frameworks-grid');
+        if (frameworksGrid) {
+            frameworksGrid.addEventListener('mouseenter', function() {
+                if (activeLanguage === null && carouselInterval) {
+                    clearInterval(carouselInterval);
+                }
+            });
+            
+            frameworksGrid.addEventListener('mouseleave', function() {
+                if (activeLanguage === null && !carouselInterval) {
+                    carouselInterval = setInterval(showCarouselFrameworks, 3000);
+                }
+            });
+        }
+    });
+</script>
