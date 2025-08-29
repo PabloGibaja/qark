@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LangsAndFrameworks from './features/LangsAndFrameworks';
+import CICDIntegrations from './features/CICDIntegrations';
+import JiraIntegration from './features/JiraIntegration';
+import DetailedTracking from './features/DetailedTracking';
 
 // Interfaces para los datos
 interface FeatureData {
@@ -20,10 +23,10 @@ const featuresData: FeatureData[] = [
     title: 'Multi-language & Frameworks',
     description: 'Soporte universal para cualquier lenguaje de programación y framework de testing. Integra resultados desde Java, Python, JavaScript, C#, y más.',
     highlights: [
-      'Soporte para 15+ lenguajes',
-      'Compatible con Jest, JUnit, PyTest, NUnit',
-      'Parseo automático de resultados',
-      'Configuración zero-config'
+      'Soporte para la mayoria de lenguajes',
+      'Compatible con la mayoria de frameworks',
+      'Compatible con resultados de testing manuales',
+      'Sin configuracion necesaria'
     ],
     visual: {
       type: 'grid',
@@ -135,6 +138,54 @@ const renderFeatureVisual = (feature: FeatureData) => {
         </div>
       );
     
+    case 'cicd-integrations':
+      return (
+        <div className="h-full">
+          <CICDIntegrations 
+            onPipelineRelaunch={() => {
+              console.log('Pipeline relanzado desde UI');
+              // Aquí podrías integrar con un sistema real de CI/CD
+            }}
+            onDocsClick={() => {
+              console.log('Navegando a documentación de CI/CD');
+              // Aquí podrías abrir la documentación real
+            }}
+          />
+        </div>
+      );
+    
+    case 'jira-integration':
+      return (
+        <div className="h-full">
+          <JiraIntegration 
+            onConnect={() => {
+              console.log('Integración con Jira activada');
+              // Aquí podrías integrar con OAuth real de Jira
+            }}
+            onTestcaseClick={(testcase) => {
+              console.log('Testcase seleccionado:', testcase.name);
+              // Aquí podrías abrir detalles adicionales o navegar
+            }}
+          />
+        </div>
+      );
+    
+    case 'detailed-tracking':
+      return (
+        <div className="h-full">
+          <DetailedTracking 
+            onTestClick={(test) => {
+              console.log('Test seleccionado:', test.name);
+              // Aquí podrías abrir detalles del test o navegar
+            }}
+            onFileClick={(file, line) => {
+              console.log(`Abriendo archivo: ${file}:${line}`);
+              // Aquí podrías integrar con editor/IDE
+            }}
+          />
+        </div>
+      );
+    
     default:
       // Placeholder para otros subcomponentes
       return (
@@ -229,7 +280,7 @@ const FeaturesSection: React.FC = () => {
         {/* Encabezado de la sección */}
         <div 
           ref={headerRef}
-          className={`text-center mb-20 ${
+          className={`text-center mb-8 ${
             isHeaderVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
           } transition-all duration-700 ease-out`}
         >
