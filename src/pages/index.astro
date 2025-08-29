@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
+import FeaturesSection from '../components/FeaturesSection';
 import '../styles/global.css';
 ---
 
@@ -13,13 +14,9 @@ import '../styles/global.css';
   <!-- Hero Section -->
   <Hero client:load />
 
-  <!-- Secciones temporales para testing del scroll -->
-  <section id="features" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Features</h2>
-      <p class="text-gray-600 dark:text-gray-300">Aquí irán las características...</p>
-    </div>
-  </section>
+  <!-- Features Section -->
+  <FeaturesSection client:load />
+
 
   <section id="how-it-works" class="py-20 px-4">
     <div class="max-w-7xl mx-auto text-center">
