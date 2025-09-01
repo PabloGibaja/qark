@@ -28,13 +28,13 @@ interface Language {
 
 // Datos de lenguajes (8 lenguajes en 2 filas de 4) - ACTUALIZADOS
 const languages: Language[] = [
-  { id: 'csharp', name: 'C#', image: '/images/languages/c.png' },
+  { id: 'csharp', name: 'C#', image: '/images/languages/csharp.svg' },
   { id: 'java', name: 'Java', image: '/images/languages/java.svg'},
   { id: 'python', name: 'Python', image: '/images/languages/python.png'},
   { id: 'javascript', name: 'JavaScript', image: '/images/languages/JavaScript.png' },
   { id: 'typescript', name: 'TypeScript', image: '/images/languages/Typescript.png' },
-  { id: 'php', name: 'PHP', image: '/images/languages/php.png' },
-  { id: 'ruby', name: 'Ruby', image: '/images/languages/Ruby.png' },
+  { id: 'php', name: 'PHP', image: '/images/languages/php.svg' },
+  { id: 'ruby', name: 'Ruby', image: '/images/languages/ruby.svg' },
   { id: 'kotlin', name: 'Kotlin', image: '/images/languages/Kotlin.png' }
 ];
 

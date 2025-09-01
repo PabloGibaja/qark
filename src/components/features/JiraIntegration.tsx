@@ -4,15 +4,11 @@ import React, { useState } from 'react';
  * Componente JiraIntegration
  * 
  * Muestra la integración con Jira con funcionalidad interactiva:
- * - Panel dividido con texto/CTA y visual mock
- * - Lista de testcases fallidos con links a Jira
- * - Pie chart de bugs por severidad
- * - Modal con detalles de testcase
- * - Simulación de conexión OAuth
+ * - Estado inicial: Solo texto y botón de activación
+ * - Estado conectado: Tests con etiquetas Jira + gráficos (pie chart + barras apiladas)
  * 
  * Props opcionales:
  * - onConnect?: () => void - Callback para activar integración
- * - onTestcaseClick?: (testcase: any) => void - Callback para click en testcase
  */
 
 // Interfaces
@@ -30,12 +26,20 @@ interface FailingTestcase {
   buildLink: string;
   jiraIssue: JiraIssue;
   stackTrace: string;
+  testStatus: 'FAILED' | 'FLAKY';
 }
 
 interface BugSeverityData {
   name: string;
   value: number;
   color: string;
+}
+
+interface HistoricalData {
+  week: string;
+  passed: number;
+  failed: number;
+  flaky: number;
 }
 
 // Datos de ejemplo
@@ -46,7 +50,8 @@ const mockFailingTestcases: FailingTestcase[] = [
     lastExecution: 'hace 15 min',
     buildLink: '#build-1234',
     jiraIssue: { id: '1', key: 'PROJ-123', status: 'Open', severity: 'Critical' },
-    stackTrace: 'AssertionError: Expected status 200 but got 401\n  at LoginTest.java:45\n  at AuthService.authenticate()'
+    stackTrace: 'AssertionError: Expected status 200 but got 401\n  at LoginTest.java:45\n  at AuthService.authenticate()',
+    testStatus: 'FAILED'
   },
   {
     id: '2',
@@ -54,70 +59,63 @@ const mockFailingTestcases: FailingTestcase[] = [
     lastExecution: 'hace 32 min',
     buildLink: '#build-1233',
     jiraIssue: { id: '2', key: 'PROJ-124', status: 'In Progress', severity: 'Major' },
-    stackTrace: 'NullPointerException: Payment gateway returned null\n  at PaymentService.java:78\n  at PaymentController.process()'
-  },
-  {
-    id: '3',
-    name: 'UITest.shouldRenderDashboard',
-    lastExecution: 'hace 1 hora',
-    buildLink: '#build-1232',
-    jiraIssue: { id: '3', key: 'PROJ-125', status: 'Open', severity: 'Minor' },
-    stackTrace: 'ElementNotFound: Dashboard element not visible\n  at UITest.java:23\n  at WebDriver.findElement()'
-  },
-  {
-    id: '4',
-    name: 'APITest.shouldReturnUserData',
-    lastExecution: 'hace 2 horas',
-    buildLink: '#build-1231',
-    jiraIssue: { id: '4', key: 'PROJ-126', status: 'In Progress', severity: 'Major' },
-    stackTrace: 'TimeoutException: API request timed out after 30s\n  at APIClient.java:156\n  at UserService.getData()'
+    stackTrace: 'NullPointerException: Payment gateway returned null\n  at PaymentService.java:78\n  at PaymentController.process()',
+    testStatus: 'FLAKY'
   }
 ];
 
 const bugSeverityData: BugSeverityData[] = [
-  { name: 'Critical', value: 25, color: '#ef4444' },
-  { name: 'Major', value: 50, color: '#f97316' },
-  { name: 'Minor', value: 25, color: '#eab308' }
+  { name: 'Critical', value: 20, color: '#ef4444' },
+  { name: 'Major', value: 48, color: '#fa9c1c' },
+  { name: 'Minor', value: 32, color: '#0f52ba' }
+];
+
+const historicalData: HistoricalData[] = [
+  { week: 'S1', passed: 85, failed: 10, flaky: 5 },
+  { week: 'S2', passed: 78, failed: 15, flaky: 7 },
+  { week: 'S3', passed: 82, failed: 12, flaky: 6 },
+  { week: 'S4', passed: 88, failed: 8, flaky: 4 },
+  { week: 'S5', passed: 75, failed: 18, flaky: 7 },
+  { week: 'S6', passed: 90, failed: 7, flaky: 3 }
 ];
 
 interface Props {
   onConnect?: () => void;
-  onTestcaseClick?: (testcase: FailingTestcase) => void;
 }
 
 const JiraIntegration: React.FC<Props> = ({ 
-  onConnect,
-  onTestcaseClick 
+  onConnect
 }) => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
-  const [selectedTestcase, setSelectedTestcase] = useState<FailingTestcase | null>(null);
-  const [highlightedSeverity, setHighlightedSeverity] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [progressWidth, setProgressWidth] = useState<number>(0);
 
   // Simular conexión OAuth
   const handleConnect = async () => {
     setIsConnecting(true);
+    setProgressWidth(0);
+    
+    // Animar el progreso
+    const interval = setInterval(() => {
+      setProgressWidth(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 5; // Incrementa 5% cada 100ms para completar en 2s
+      });
+    }, 100);
     
     setTimeout(() => {
       setIsConnecting(false);
       setIsConnected(true);
+      setProgressWidth(0);
+      clearInterval(interval);
       
       if (onConnect) {
         onConnect();
       }
     }, 2000);
-  };
-
-  // Manejar click en testcase
-  const handleTestcaseClick = (testcase: FailingTestcase) => {
-    setSelectedTestcase(testcase);
-    setHighlightedSeverity(testcase.jiraIssue.severity);
-    setShowModal(true);
-    
-    if (onTestcaseClick) {
-      onTestcaseClick(testcase);
-    }
   };
 
   // Renderizar pie chart simple con SVG
@@ -147,8 +145,8 @@ const JiraIntegration: React.FC<Props> = ({
                 cy="21"
                 r="15.915"
                 fill="transparent"
-                stroke={highlightedSeverity === item.name ? item.color : `${item.color}80`}
-                strokeWidth={highlightedSeverity === item.name ? "4" : "3"}
+                stroke={item.color}
+                strokeWidth="3"
                 strokeDasharray={strokeDasharray}
                 strokeDashoffset={strokeDashoffset}
                 className="transition-all duration-300"
@@ -162,8 +160,63 @@ const JiraIntegration: React.FC<Props> = ({
               {mockFailingTestcases.length}
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400">
-              Tests
+              Issues
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Renderizar gráfico de barras apiladas
+  const renderStackedBarChart = () => {
+    const maxValue = Math.max(...historicalData.map(d => d.passed + d.failed + d.flaky));
+    
+    return (
+      <div className="space-y-3">
+        <h6 className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center">
+          Histórico semanal
+        </h6>
+        <div className="flex items-end justify-between space-x-1 h-32">
+          {historicalData.map((data, index) => {
+            const total = data.passed + data.failed + data.flaky;
+            const passedHeight = (data.passed / maxValue) * 100;
+            const failedHeight = (data.failed / maxValue) * 100;
+            const flakyHeight = (data.flaky / maxValue) * 100;
+            
+            return (
+              <div key={index} className="flex flex-col items-center space-y-1 flex-1">
+                <div className="w-full flex flex-col" style={{ height: '100px' }}>
+                  <div 
+                    className="bg-red-500 w-full"
+                    style={{ height: `${failedHeight}%` }}
+                  ></div>
+                  <div 
+                    className="bg-yellow-500 w-full"
+                    style={{ height: `${flakyHeight}%` }}
+                  ></div>
+                  <div 
+                    className="bg-green-500 w-full"
+                    style={{ height: `${passedHeight}%` }}
+                  ></div>
+                </div>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{data.week}</span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex justify-center space-x-4 text-xs">
+          <div className="flex items-center space-x-1">
+            <div className="w-3 h-3 bg-green-500 rounded"></div>
+            <span className="text-gray-600 dark:text-gray-400">Exitoso</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+            <span className="text-gray-600 dark:text-gray-400">Skipped</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <div className="w-3 h-3 bg-red-500 rounded"></div>
+            <span className="text-gray-600 dark:text-gray-400">Fallido</span>
           </div>
         </div>
       </div>
@@ -177,6 +230,15 @@ const JiraIntegration: React.FC<Props> = ({
       case 'In Progress': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
       case 'Done': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    }
+  };
+
+  // Obtener color y estilo de la etiqueta de test
+  const getTestStatusStyle = (testStatus: 'FAILED' | 'FLAKY') => {
+    switch (testStatus) {
+      case 'FAILED': return 'bg-red-500 text-white';
+      case 'FLAKY': return 'bg-yellow-500 text-white';
+      default: return 'bg-gray-500 text-white';
     }
   };
 
@@ -195,195 +257,231 @@ const JiraIntegration: React.FC<Props> = ({
       {/* Encabezado con claim */}
       <div className="text-center">
         <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-          Enriquece tus dashboards activando la integración con Jira
+          Controla todo el ciclo de pruebas
         </h4>
         <p className="text-gray-600 dark:text-gray-400">
-          Link automático entre issues y testcases
+          Link automático entre issues, testcases y bugs
         </p>
       </div>
 
-      {/* Panel dividido */}
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* Izquierda - Texto y CTA */}
+      {/* Estado inicial - Tests fallidos sin etiquetas Jira */}
+      {!isConnected && (
         <div className="space-y-6">
-          <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-              Conecta con Jira
-            </h5>
-            
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-              Linkea automáticamente fallos con issues en Jira y pasa metadata (PR, commit) para facilitar el triage.
-            </p>
-            
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                <i className="fas fa-check text-green-500"></i>
-                <span>Linking automático de issues</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                <i className="fas fa-check text-green-500"></i>
-                <span>Metadata de PR y commits</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                <i className="fas fa-check text-green-500"></i>
-                <span>Triage facilitado</span>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+           
           </div>
 
-          {/* CTA Button */}
-          <div className="space-y-3">
-            {isConnected ? (
-              <div className="flex items-center space-x-2 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-green-700 dark:text-green-300 font-medium">Conectado a Jira</span>
+          {/* Layout de 2 columnas - Texto izquierda, Tests derecha */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Columna 1: Beneficios y CTA */}
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Summary, status, severity</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Metadata de PR y commits disponible en Jira</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Widgets de Jira disponibles en los dashboards</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Insights disponibles en los issues de Jira</span>
+                </div>
               </div>
-            ) : (
+
+              {/* CTA Button con animación de progreso */}
               <button
                 onClick={handleConnect}
                 disabled={isConnecting}
-                className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+                className={`relative w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 overflow-hidden ${
                   isConnecting
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
                 } text-white`}
               >
-                {isConnecting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                    <span>Conectando...</span>
-                  </>
-                ) : (
-                  <>
-                    <i className="fab fa-jira"></i>
-                    <span>Activar integración</span>
-                  </>
+                {/* Barra de progreso animada */}
+                {isConnecting && (
+                  <div 
+                    className="absolute inset-y-0 left-0 bg-green-600 transition-all duration-100 ease-linear"
+                    style={{ width: `${progressWidth}%` }}
+                  >
+                  </div>
                 )}
+                
+                <div className="relative z-10 flex items-center space-x-2">
+                  {isConnecting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                      <span>Conectando...</span>
+                    </>
+                  ) : (
+                    <>
+                      <i className="fab fa-jira"></i>
+                      <span>Activar integración</span>
+                    </>
+                  )}
+                </div>
               </button>
-            )}
-          </div>
-        </div>
-
-        {/* Derecha - Visual mock */}
-        <div className="space-y-6">
-          {/* Lista de testcases fallidos */}
-          <div className="space-y-4">
-            <h6 className="text-md font-semibold text-gray-700 dark:text-gray-300">
-              Tests fallidos recientes
-            </h6>
-            
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {mockFailingTestcases.map((testcase) => (
-                <div
-                  key={testcase.id}
-                  onClick={() => handleTestcaseClick(testcase)}
-                  className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer group"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-start justify-between">
-                      <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {testcase.name}
-                      </h6>
-                      <div className={`w-3 h-3 rounded-full ${getSeverityColor(testcase.jiraIssue.severity)}`}></div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                      <div className="flex items-center space-x-2">
-                        <i className="fas fa-clock"></i>
-                        <span>{testcase.lastExecution}</span>
-                        <span>•</span>
-                        <a href={testcase.buildLink} className="text-blue-500 hover:text-blue-600">
-                          Build
-                        </a>
-                      </div>
-                      
-                      <div className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(testcase.jiraIssue.status)}`}>
-                        {testcase.jiraIssue.key}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
-          </div>
 
-          {/* Pie chart de severidad */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <h6 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center">
-              Bugs por severidad
-            </h6>
-            
-            {renderPieChart()}
-            
-            <div className="mt-4 space-y-2">
-              {bugSeverityData.map((item) => (
-                <div key={item.name} className="flex items-center justify-between text-xs">
-                  <div className="flex items-center space-x-2">
-                    <div 
-                      className="w-3 h-3 rounded-full" 
-                      style={{ backgroundColor: item.color }}
-                    ></div>
-                    <span className="text-gray-600 dark:text-gray-400">{item.name}</span>
-                  </div>
-                  <span className="text-gray-800 dark:text-gray-200 font-medium">{item.value}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal con detalles del testcase */}
-      {showModal && selectedTestcase && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            {/* Columna 2: Tests fallidos recientes */}
             <div className="space-y-4">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {selectedTestcase.name}
-                  </h3>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(selectedTestcase.jiraIssue.status)}`}>
-                      {selectedTestcase.jiraIssue.key}
-                    </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {selectedTestcase.jiraIssue.severity}
-                    </span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  <i className="fas fa-times"></i>
-                </button>
-              </div>
+              <h6 className="text-md font-semibold text-gray-700 dark:text-gray-300">
+                Tests fallidos recientes
+              </h6>
               
               <div className="space-y-3">
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Stack Trace
-                  </h4>
-                  <div className="bg-gray-100 dark:bg-gray-700 rounded p-3 font-mono text-xs text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
-                    {selectedTestcase.stackTrace}
+                {mockFailingTestcases.map((testcase) => (
+                  <div
+                    key={testcase.id}
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between">
+                        <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                          {testcase.name}
+                        </h6>
+                        <span className={`px-2 py-1 rounded text-xs font-bold ${getTestStatusStyle(testcase.testStatus)}`}>
+                          {testcase.testStatus}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center space-x-2">
+                          <i className="fas fa-clock"></i>
+                          <span>{testcase.lastExecution}</span>
+                          <span>•</span>
+                          <a className="text-blue-500 hover:text-blue-600">
+                            Build
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Estado conectado - Layout 2 columnas x 2 filas */}
+      {isConnected && (
+        <div className="space-y-6">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+           
+          </div>
+
+          {/* Primera fila: Texto izquierda, Tests CON etiquetas Jira derecha */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Columna 1: Beneficios y botón conectado */}
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Summary, status, severity</span>
                 </div>
-                
-                <div className="flex space-x-3">
-                  <a
-                    href={selectedTestcase.buildLink}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors text-center"
-                  >
-                    Ver Build
-                  </a>
-                  <a
-                    href={`#jira-${selectedTestcase.jiraIssue.key}`}
-                    className="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors text-center"
-                  >
-                    Abrir en Jira
-                  </a>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Metadata de PR y commits disponible en Jira</span>
                 </div>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Widgets de Jira disponibles en los dashboards</span>
+                </div>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <i className="fas fa-check text-green-500"></i>
+                  <span>Insights disponibles en los issues de Jira</span>
+                </div>
+              </div>
+
+              {/* Botón conectado */}
+              <div className="w-full py-3 px-4 rounded-lg font-semibold bg-green-600 text-white flex items-center justify-center space-x-2">
+                <i className="fas fa-check-circle"></i>
+                <span>Jira conectado</span>
+              </div>
+            </div>
+
+            {/* Columna 2: Tests fallidos CON etiquetas Jira */}
+            <div className="space-y-4">
+              <h6 className="text-md font-semibold text-gray-700 dark:text-gray-300">
+                Tests fallidos recientes
+              </h6>
+              
+              <div className="space-y-3">
+                {mockFailingTestcases.map((testcase) => (
+                  <div
+                    key={testcase.id}
+                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between">
+                        <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                          {testcase.name}
+                        </h6>
+                        <div className={`w-3 h-3 rounded-full ${getSeverityColor(testcase.jiraIssue.severity)}`}></div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center space-x-2">
+                          <i className="fas fa-clock"></i>
+                          <span>{testcase.lastExecution}</span>
+                          <span>•</span>
+                          <a href={testcase.buildLink} className="text-blue-500 hover:text-blue-600">
+                            Build
+                          </a>
+                        </div>
+                        
+                        <div className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(testcase.jiraIssue.status)} relative overflow-hidden`}>
+                          {/* Efecto shiny sutil */}
+                          <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_ease-in-out_infinite]"></div>
+                          <span className="relative z-10">{testcase.jiraIssue.key}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Segunda fila: Gráficos (2 columnas) */}
+          <div className="grid md:grid-cols-2 gap-8 animate-[fadeInUp_0.6s_ease-out_0.3s_both]">
+            {/* Pie chart de severidad */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 transform transition-all duration-500 hover:scale-105">
+              <h6 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center">
+                Bugs por severidad
+              </h6>
+              
+              <div className="animate-[scaleIn_0.8s_ease-out_0.5s_both]">
+                {renderPieChart()}
+              </div>
+              
+              <div className="mt-4 space-y-2 animate-[fadeIn_1s_ease-out_0.7s_both]">
+                {bugSeverityData.map((item, index) => (
+                  <div key={item.name} className="flex items-center justify-between text-xs transform transition-all duration-300 hover:translate-x-1">
+                    <div className="flex items-center space-x-2">
+                      <div 
+                        className="w-3 h-3 rounded-full transition-all duration-300 hover:scale-125" 
+                        style={{ backgroundColor: item.color }}
+                      ></div>
+                      <span className="text-gray-600 dark:text-gray-400">{item.name}</span>
+                    </div>
+                    <span className="text-gray-800 dark:text-gray-200 font-medium">{item.value}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Gráfico de barras apiladas */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 transform transition-all duration-500 hover:scale-105 animate-[slideInRight_0.6s_ease-out_0.4s_both]">
+              <div className="animate-[fadeIn_0.8s_ease-out_0.6s_both]">
+                {renderStackedBarChart()}
               </div>
             </div>
           </div>
