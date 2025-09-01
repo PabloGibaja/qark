@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section id='hero' className="relative min-h-screen flex items-center bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Fondo con patrón sutil */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-teal-50/50 dark:from-gray-900 dark:to-gray-800"></div>
       
@@ -15,28 +15,27 @@ const Hero: React.FC = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 lg:mb-6">
               Centraliza tus{' '}
               <span className="gradient-text">
-                resultados de testing
+                pruebas de software
               </span>
               {' '}en un único lugar
             </h1>
             
             {/* Subclaim */}
             <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 lg:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Conecta tus pipelines, integra Jira y GitHub, y obtén insights claros para tu equipo en tiempo real. 
-              <span className="font-medium text-gray-800 dark:text-gray-200">
-                Menos fricción, más control.
-              </span>
+              Conecta tus pipelines, integra tus herramientas habituales y obtén insights avanzados y claros para tus equipos. 
+              
             </p>
+           
             
             {/* Botones CTA */}
             <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center lg:justify-start mb-8 lg:mb-12">
               {/* Botón primario */}
               <a 
-                href="/demo"
+                href="/contact"
                 className="group bg-gradient-qark text-white px-6 lg:px-8 py-3 lg:py-4 rounded-lg text-base lg:text-lg font-semibold hover:opacity-90 transition-all duration-300 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 <span className="mr-2 text-lg lg:text-xl group-hover:animate-bounce">🚀</span>
-                Probar demo
+                Prueba la demo gratis
               </a>
               
               {/* Botón secundario */}
@@ -52,38 +51,51 @@ const Hero: React.FC = () => {
             {/* Logos de integraciones */}
             <div className="">
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3 lg:mb-4 font-medium">
-                Integra con tus herramientas favoritas
+                Compatible con la mayoria de herramientas utilizadas en el mundo del desarrollo
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 lg:gap-6 opacity-60 hover:opacity-80 transition-opacity duration-300">
                 {/* GitHub */}
                 <div className="flex items-center space-x-1 lg:space-x-2 bg-white dark:bg-gray-800 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm">
-                  <i className="fab fa-github text-lg lg:text-2xl text-gray-700 dark:text-gray-300"></i>
+                  <img src="/images/ci-cd/github.svg" alt="GitHub" className="w-4 h-4 lg:w-6 lg:h-6" />
                   <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">GitHub</span>
                 </div>
                 
                 {/* Jira */}
                 <div className="flex items-center space-x-1 lg:space-x-2 bg-white dark:bg-gray-800 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm">
-                  <i className="fab fa-jira text-lg lg:text-2xl text-blue-600"></i>
+                  <img src="/images/ci-cd/jira.svg" alt="Jira" className="w-4 h-4 lg:w-6 lg:h-6" />
                   <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">Jira</span>
                 </div>
                 
                 {/* Slack */}
                 <div className="flex items-center space-x-1 lg:space-x-2 bg-white dark:bg-gray-800 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm">
-                  <i className="fab fa-slack text-lg lg:text-2xl text-purple-600"></i>
+                  <img src="/images/ci-cd/slack.svg" alt="Slack" className="w-4 h-4 lg:w-6 lg:h-6" />
                   <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">Slack</span>
                 </div>
                 
                 {/* Jenkins */}
                 <div className="flex items-center space-x-1 lg:space-x-2 bg-white dark:bg-gray-800 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm">
-                  <i className="fas fa-cog text-lg lg:text-2xl text-gray-600"></i>
+                  <img src="/images/ci-cd/jenkins.svg" alt="Jenkins" className="w-4 h-4 lg:w-6 lg:h-6" />
                   <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">Jenkins</span>
                 </div>
                 
-                {/* Docker */}
+                {/* Azure */}
                 <div className="flex items-center space-x-1 lg:space-x-2 bg-white dark:bg-gray-800 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm">
-                  <i className="fab fa-docker text-lg lg:text-2xl text-blue-500"></i>
-                  <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">Docker</span>
+                  <img src="/images/ci-cd/azure.svg" alt="Azure" className="w-4 h-4 lg:w-6 lg:h-6" />
+                  <span className="text-xs lg:text-sm font-medium text-gray-700 dark:text-gray-300">Azure</span>
                 </div>
+                
+                {/* Y muchos más */}
+                <a 
+                  href="#features"
+                  className="flex items-center space-x-1 lg:space-x-2 bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 border border-blue-200 dark:border-blue-700 px-2 lg:px-3 py-1 lg:py-2 rounded-lg shadow-sm hover:from-blue-100 hover:to-teal-100 dark:hover:from-blue-800/30 dark:hover:to-teal-800/30 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer"
+                >
+                  <div className="flex space-x-0.5">
+                    <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 bg-blue-500 rounded-full"></div>
+                    <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 bg-teal-500 rounded-full"></div>
+                    <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 bg-purple-500 rounded-full"></div>
+                  </div>
+                  <span className="text-xs lg:text-sm font-medium text-blue-700 dark:text-blue-300">y muchos más</span>
+                </a>
               </div>
             </div>
           </div>

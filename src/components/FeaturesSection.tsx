@@ -248,16 +248,7 @@ const FeatureSubsection: React.FC<{
           ))}
         </ul>
         
-        {/* CTA Button */}
-        <div className="pt-3 lg:pt-4">
-          <button 
-            className="group bg-gradient-qark text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg text-sm lg:text-base font-semibold hover:opacity-90 transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            aria-label={`Explorar más sobre ${feature.title}`}
-          >
-            Explorar más
-            <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-          </button>
-        </div>
+        
       </div>
       
       {/* Visual - 2/3 del ancho en desktop, full width en móvil */}

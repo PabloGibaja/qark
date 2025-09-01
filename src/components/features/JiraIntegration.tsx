@@ -49,7 +49,7 @@ const mockFailingTestcases: FailingTestcase[] = [
     name: 'LoginTest.shouldAuthenticateUser',
     lastExecution: 'hace 15 min',
     buildLink: '#build-1234',
-    jiraIssue: { id: '1', key: 'PROJ-123', status: 'Open', severity: 'Critical' },
+    jiraIssue: { id: '1', key: 'BUG-1298', status: 'Open', severity: 'Critical' },
     stackTrace: 'AssertionError: Expected status 200 but got 401\n  at LoginTest.java:45\n  at AuthService.authenticate()',
     testStatus: 'FAILED'
   },
@@ -58,9 +58,9 @@ const mockFailingTestcases: FailingTestcase[] = [
     name: 'PaymentTest.shouldProcessPayment',
     lastExecution: 'hace 32 min',
     buildLink: '#build-1233',
-    jiraIssue: { id: '2', key: 'PROJ-124', status: 'In Progress', severity: 'Major' },
+    jiraIssue: { id: '2', key: 'BUG-1252', status: 'Open', severity: 'Critical' },
     stackTrace: 'NullPointerException: Payment gateway returned null\n  at PaymentService.java:78\n  at PaymentController.process()',
-    testStatus: 'FLAKY'
+    testStatus: 'FAILED'
   }
 ];
 
@@ -343,12 +343,13 @@ const JiraIntegration: React.FC<Props> = ({
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between">
-                        <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          {testcase.name}
-                        </h6>
-                        <span className={`px-2 py-1 rounded text-xs font-bold ${getTestStatusStyle(testcase.testStatus)}`}>
-                          {testcase.testStatus}
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            {testcase.name}
+                          </h6>
+                          
+                        </div>
+                        <div className={`w-3 h-3 rounded-full ${getSeverityColor(testcase.jiraIssue.severity)}`}></div>
                       </div>
                       
                       <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
@@ -421,9 +422,12 @@ const JiraIntegration: React.FC<Props> = ({
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between">
-                        <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          {testcase.name}
-                        </h6>
+                        <div className="flex items-center space-x-2">
+                          <h6 className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                            {testcase.name}
+                          </h6>
+                          
+                        </div>
                         <div className={`w-3 h-3 rounded-full ${getSeverityColor(testcase.jiraIssue.severity)}`}></div>
                       </div>
                       
@@ -438,9 +442,10 @@ const JiraIntegration: React.FC<Props> = ({
                         </div>
                         
                         <div className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(testcase.jiraIssue.status)} relative overflow-hidden`}>
-                          {/* Efecto shiny sutil */}
-                          <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_ease-in-out_infinite]"></div>
-                          <span className="relative z-10">{testcase.jiraIssue.key}</span>
+                          {/* Efecto shiny más exagerado */}
+                          <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_ease-in-out_infinite]" style={{animationDelay: '0s'}}></div>
+                          <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_ease-in-out_infinite]" style={{animationDelay: '0.5s'}}></div>
+                          <span className="relative z-10">{testcase.jiraIssue.key} ({testcase.jiraIssue.status})</span>
                         </div>
                       </div>
                     </div>

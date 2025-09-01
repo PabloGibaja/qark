@@ -4,20 +4,23 @@ export interface Props {
   description?: string;
   keywords?: string;
   ogImage?: string;
+  noIndex?: boolean;
 }
 
 const {
   title,
-  description = "QArk is a next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases. Get clear visual dashboards with CI/CD integration, pipeline automation, and comprehensive test analytics.",
-  keywords = "QA test results, dashboards, allure, charts, CI/CD integration, pipeline, docker, test automation, quality assurance, test analytics, selenium, pytest, jenkins, github actions, jira integration",
-  ogImage = "https://qark.app/images/qark-dashboard-preview.jpg"
+  description = "QArk todas tus pruebas de software en un único lugar. Conecta tus pipelines, integra tus herramientas habituales y obtén insights avanzados y claros para tus equipos. No necesitas cambiar nada, QArk se integra de forma sencilla.",
+  keywords = "QArk, pruebas software, test automation, CI/CD integration, dashboards QA, test results, selenium, pytest, jenkins, github actions, jira integration, test analytics, quality assurance, automated testing, test management",
+  ogImage = "/miniatura-web.png",
+  noIndex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullOgImageURL = new URL(ogImage, Astro.site).toString();
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,7 +41,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="QArk" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="theme-color" content="#3b82f6" />
     
     <!-- Canonical Link -->
     <link rel="canonical" href={canonicalURL} />
@@ -48,26 +52,36 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={fullOgImageURL} />
+    <meta property="og:image:alt" content="QArk - Centraliza tus pruebas de software" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="QArk" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="es_ES" />
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={fullOgImageURL} />
+    <meta name="twitter:image:alt" content="QArk - Centraliza tus pruebas de software" />
     <meta name="twitter:site" content="@QArkApp" />
+    <meta name="twitter:creator" content="@QArkApp" />
+    
+    <!-- LinkedIn Meta Tags -->
+    <meta property="article:author" content="QArk" />
+    <meta property="article:publisher" content="QArk" />
     
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -80,30 +94,41 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "QArk",
-        "description": "Next-generation QA platform that centralizes test results from any programming language, automation framework, and manual test cases",
+        "description": "Centraliza tus pruebas de software en un único lugar. Conecta tus pipelines, integra tus herramientas habituales y obtén insights avanzados y claros para tus equipos.",
         "url": "https://qark.app",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
+        "softwareVersion": "1.0",
+        "releaseNotes": "Plataforma de centralización de pruebas de software con integración CI/CD",
         "offers": {
             "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
+            "price": "39",
+            "priceCurrency": "EUR",
             "priceValidUntil": "2025-12-31",
-            "availability": "https://schema.org/InStock"
+            "availability": "https://schema.org/InStock",
+            "eligibleRegion": "ES"
         },
         "creator": {
             "@type": "Organization",
             "name": "QArk",
-            "url": "https://qark.app"
+            "url": "https://qark.app",
+            "logo": "https://qark.app/icon.png"
         },
         "featureList": [
-            "Universal Test Integration",
-            "Manager-Level Insights",
-            "Pipeline Integration",
-            "Jira Integration",
-            "Detailed Failure Analysis"
+            "Integración Universal de Tests",
+            "Insights para Managers",
+            "Integración con Pipelines CI/CD",
+            "Integración con Jira",
+            "Análisis Detallado de Fallos",
+            "Dashboards Unificados",
+            "Soporte Multi-lenguaje"
         ],
-        "screenshot": "https://qark.app/images/qark-dashboard-preview.jpg"
+        "screenshot": fullOgImageURL,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127"
+        }
     })} />
     
     <meta name="generator" content={Astro.generator} />

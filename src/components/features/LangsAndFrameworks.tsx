@@ -279,12 +279,12 @@ const LangsAndFrameworks: React.FC<Props> = ({ onContactRequest }) => {
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     No encontramos "{debouncedSearch}"
                   </p>
-                  <button
-                    onClick={() => handleContactRequest(debouncedSearch)}
-                    className="bg-qark-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+                  <a
+                    href="/contact"
+                    className="bg-qark-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium inline-block text-center"
                   >
                     Solicitar soporte
-                  </button>
+                  </a>
                 </div>
               )}
             </div>
@@ -326,12 +326,12 @@ const LangsAndFrameworks: React.FC<Props> = ({ onContactRequest }) => {
         {/* Texto de contacto - alineado a la derecha */}
         <div className="flex justify-end text-sm text-gray-500 dark:text-gray-400">
           ¿No encuentras tu framework? 
-          <button 
-            onClick={() => handleContactRequest('framework personalizado')}
+          <a 
+            href="/contact"
             className="text-qark-blue hover:text-qark-teal underline ml-1 transition-colors duration-300"
           >
             Contáctanos
-          </button>
+          </a>
         </div>
       </div>
 

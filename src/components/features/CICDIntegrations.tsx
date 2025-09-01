@@ -221,7 +221,7 @@ const CICDIntegrations: React.FC<Props> = ({
                     <i className="fas fa-commit text-gray-400"></i>
                     <span className="font-mono">{hasRelaunched ? 'f9e8d7c' : 'a1b2c3d'}</span>
                     <span>•</span>
-                    <span>{hasRelaunched ? '"Relanzando desde qark.app, Gracias!"' : '"Fix: Update test configuration"'}</span>
+                    <span>{hasRelaunched ? '"Relanzado desde qark.app, Gracias!"' : '"Fix: Update test configuration"'}</span>
                   </div>
                 </div>
               </div>
@@ -236,13 +236,13 @@ const CICDIntegrations: React.FC<Props> = ({
           <div className="text-sm text-blue-800 dark:text-blue-200">
             Consulta nuestra documentación y elige la forma de integrarte que más te convenga.
           </div>
-          <button
-            onClick={handleDocsClick}
+          <a
+            href="/contact"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 flex items-center space-x-2 whitespace-nowrap"
           >
             <i className="fas fa-book"></i>
             <span>Ver docs</span>
-          </button>
+          </a>
         </div>
       </div>
 
