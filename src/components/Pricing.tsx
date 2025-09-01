@@ -158,7 +158,7 @@ const Pricing: React.FC = () => {
                       <a 
                         href="/contact"
                         className={`
-                          inline-block w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 transform text-center
+                          inline-block w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 transform text-center no-underline relative z-10
                           ${
                             plan.popular
                               ? 'bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:from-blue-700 hover:to-blue-900 shadow-lg hover:shadow-xl'
@@ -168,6 +168,10 @@ const Pricing: React.FC = () => {
                             isHovered ? 'scale-105' : ''
                           }
                         `}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = '/contact';
+                        }}
                       >
                         Obtener
                       </a>
@@ -192,7 +196,7 @@ const Pricing: React.FC = () => {
         {/* Footer Note */}
         <div className="text-center mt-12">
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Todos los planes incluyen 14 días de prueba gratuita. Sin compromiso.
+            Todos los planes incluyen 1 mes de prueba gratuita. Sin compromiso.
           </p>
         </div>
       </div>
