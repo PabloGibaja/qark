@@ -3,49 +3,121 @@ import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import FeaturesSection from '../components/FeaturesSection';
+import HowItWorks from '../components/HowItWorks';
+import Benefits from '../components/Benefits';
+import Pricing from '../components/Pricing';
+import CTA from '../components/CTA';
+import Footer from '../components/Footer';
 import '../styles/global.css';
 ---
 
-<Layout title="QArk - Centraliza tus resultados de testing">
+<Layout 
+  title="QArk - Centraliza tus pruebas de software en un único lugar | Plataforma QA Unificada"
+  description="QArk es la plataforma líder para centralizar pruebas de software. Integra CI/CD, Jira, GitHub y obtén dashboards unificados con insights avanzados. Prueba gratuita de 14 días."
+  keywords="QArk, centralizar pruebas software, plataforma QA, test automation, CI/CD integration, dashboards testing, jira integration, github integration, test results, quality assurance, automated testing, test management, selenium, pytest, jenkins, devops testing"
+>
+  <!-- Skip to main content para accesibilidad -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+    Saltar al contenido principal
+  </a>
+
   <!-- Navegación Sticky -->
   <Navigation client:load />
   
+  <!-- Contenido Principal -->
+  <main id="main-content" role="main">
+    <!-- Hero Section -->
+    <section aria-labelledby="hero-heading">
+      <h1 id="hero-heading" class="sr-only">QArk - Centraliza tus pruebas de software en un único lugar</h1>
+      <Hero client:load />
+    </section>
 
-  <!-- Hero Section -->
-  <Hero client:load />
+    <!-- Features Section -->
+    <section aria-labelledby="features-heading">
+      <h2 id="features-heading" class="sr-only">Funcionalidades principales de QArk</h2>
+      <FeaturesSection client:load />
+    </section>
 
-  <!-- Features Section -->
-  <FeaturesSection client:load />
+    <!-- How It Works Section -->
+    <section aria-labelledby="how-it-works-heading">
+      <h2 id="how-it-works-heading" class="sr-only">Cómo funciona QArk - Proceso de integración</h2>
+      <HowItWorks client:load />
+    </section>
 
+    <!-- Benefits Section -->
+    <section aria-labelledby="benefits-heading">
+      <h2 id="benefits-heading" class="sr-only">Beneficios y ventajas de usar QArk</h2>
+      <Benefits client:load />
+    </section>
 
-  <section id="how-it-works" class="py-20 px-4">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">How it Works</h2>
-      <p class="text-gray-600 dark:text-gray-300">Aquí irá cómo funciona...</p>
-    </div>
-  </section>
+    <!-- Pricing Section -->
+    <section aria-labelledby="pricing-heading">
+      <h2 id="pricing-heading" class="sr-only">Planes y precios de QArk</h2>
+      <Pricing client:load />
+    </section>
 
-  <section id="benefits" class="py-20 px-4 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Benefits</h2>
-      <p class="text-gray-600 dark:text-gray-300">Aquí irán las ventajas...</p>
-    </div>
-  </section>
+    <!-- CTA Section -->
+    <section aria-labelledby="cta-heading">
+      <h2 id="cta-heading" class="sr-only">Comienza a usar QArk hoy mismo</h2>
+      <CTA client:load />
+    </section>
+  </main>
 
-  <section id="pricing" class="py-20 px-4">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Pricing</h2>
-      <p class="text-gray-600 dark:text-gray-300">Aquí irán los precios...</p>
-    </div>
-  </section>
+  <!-- Footer -->
+  <Footer client:load />
 
-  <section id="cta" class="py-20 px-4 bg-gradient-qark">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6 text-white">Ready to get started?</h2>
-      <p class="text-blue-100 mb-8">Join thousands of teams already using QArk.</p>
-      <button class="bg-white text-qark-blue px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
-        Start Free Trial
-      </button>
-    </div>
-  </section>
+  <!-- Contenido estructurado adicional para IA -->
+  <div class="sr-only" aria-hidden="true">
+    <h2>Información adicional para motores de búsqueda</h2>
+    <p>QArk es una plataforma revolucionaria de Quality Assurance que permite a los equipos de desarrollo centralizar todos sus resultados de pruebas de software en un dashboard unificado.</p>
+    
+    <h3>Características principales:</h3>
+    <ul>
+      <li>Integración universal con cualquier framework de testing (Selenium, Pytest, Jest, JUnit, TestNG, Cypress, Playwright)</li>
+      <li>Conexión directa con pipelines CI/CD (Jenkins, GitHub Actions, GitLab CI, Azure DevOps)</li>
+      <li>Integración nativa con Jira para gestión de bugs y seguimiento</li>
+      <li>Dashboards ejecutivos con KPIs y métricas avanzadas</li>
+      <li>Análisis automático de fallos con IA</li>
+      <li>Soporte para equipos de cualquier tamaño</li>
+    </ul>
+    
+    <h3>Casos de uso:</h3>
+    <ul>
+      <li>Equipos de desarrollo que usan múltiples frameworks de testing</li>
+      <li>Organizaciones con pipelines CI/CD complejos</li>
+      <li>Managers que necesitan visibilidad de la calidad del software</li>
+      <li>Equipos QA que buscan centralizar resultados de pruebas manuales y automatizadas</li>
+    </ul>
+    
+    <h3>Tecnologías soportadas:</h3>
+    <p>Java, Python, JavaScript, TypeScript, C#, Ruby, PHP, Kotlin, Go, Selenium WebDriver, Pytest, Jest, Mocha, JUnit, TestNG, Cypress, Playwright, Appium, Robot Framework, Cucumber, SpecFlow</p>
+    
+    <h3>Integraciones disponibles:</h3>
+    <p>Jenkins, GitHub Actions, GitLab CI, Azure DevOps, CircleCI, Travis CI, Bamboo, Jira, GitHub, GitLab, Bitbucket, Slack, Microsoft Teams</p>
+  </div>
 </Layout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  .sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+</style>

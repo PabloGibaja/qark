@@ -25,14 +25,14 @@ interface CICDTool {
 
 // Datos de herramientas CI/CD
 const cicdTools: CICDTool[] = [
-  { id: 'github-actions', name: 'GitHub Actions', icon: 'devicon-github-original', color: 'text-gray-800', supported: true },
-  { id: 'jenkins', name: 'Jenkins', icon: 'devicon-jenkins-line', color: 'text-blue-600', supported: true },
-  { id: 'gitlab-ci', name: 'GitLab CI', icon: 'devicon-gitlab-plain', color: 'text-orange-600', supported: true },
+  { id: 'github-actions', name: 'GitHub Actions', icon: 'devicon-github-original', color: 'text-white-800', supported: true },
+  { id: 'jenkins', name: 'Jenkins', icon: '/images/ci-cd/jenkins.svg', color: 'text-black-600', supported: true },
+  { id: 'gitlab-ci', name: 'GitLab CI', icon: '/images/ci-cd/gitlab.svg', color: 'text-orange-600', supported: true },
   { id: 'circleci', name: 'CircleCI', icon: 'devicon-circleci-plain', color: 'text-green-600', supported: true },
-  { id: 'travis-ci', name: 'Travis CI', icon: 'fas fa-cube', color: 'text-yellow-600', supported: true },
-  { id: 'azure-pipelines', name: 'Azure Pipelines', icon: 'devicon-azure-plain', color: 'text-blue-700', supported: true },
-  { id: 'bitbucket', name: 'Bitbucket Pipelines', icon: 'devicon-bitbucket-original', color: 'text-blue-800', supported: true },
-  { id: 'drone', name: 'Drone', icon: 'fas fa-paper-plane', color: 'text-gray-600', supported: true }
+  { id: 'travis-ci', name: 'Travis CI', icon: '/images/ci-cd/travis.svg', color: 'text-yellow-600', supported: true },
+  { id: 'azure-pipelines', name: 'Azure Pipelines', icon: '/images/ci-cd/azure.svg', color: 'text-blue-700', supported: true },
+  { id: 'bitbucket', name: 'Bitbucket Pipelines', icon: '/images/ci-cd/bitbucket.svg', color: 'text-blue-500', supported: true },
+  { id: 'bamboo', name: 'Bamboo', icon: '/images/ci-cd/bamboo.svg', color: 'text-white-700', supported: true }
 ];
 
 interface Props {
@@ -46,6 +46,7 @@ const CICDIntegrations: React.FC<Props> = ({
 }) => {
   const [isRelaunching, setIsRelaunching] = useState<boolean>(false);
   const [showSuccessToast, setShowSuccessToast] = useState<boolean>(false);
+  const [hasRelaunched, setHasRelaunched] = useState<boolean>(false);
 
   // Simular relanzamiento de pipeline
   const handlePipelineRelaunch = async () => {
@@ -55,6 +56,7 @@ const CICDIntegrations: React.FC<Props> = ({
     setTimeout(() => {
       setIsRelaunching(false);
       setShowSuccessToast(true);
+      setHasRelaunched(true);
       
       if (onPipelineRelaunch) {
         onPipelineRelaunch();
@@ -96,8 +98,16 @@ const CICDIntegrations: React.FC<Props> = ({
               key={tool.id}
               className="relative group flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
             >
-              <div className={`text-3xl ${tool.color} group-hover:scale-110 transition-transform duration-300 mb-2`}>
-                <i className={tool.icon}></i>
+              <div className={`text-3xl ${tool.color} group-hover:scale-110 transition-transform duration-300 mb-2 flex items-center justify-center`}>
+                {tool.icon.startsWith('/') || tool.icon.includes('.png') || tool.icon.includes('.jpg') || tool.icon.includes('.svg') ? (
+                  <img 
+                    src={tool.icon} 
+                    alt={tool.name}
+                    className="w-8 h-8 object-contain"
+                  />
+                ) : (
+                  <i className={tool.icon}></i>
+                )}
               </div>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300 text-center">
                 {tool.name}
@@ -198,7 +208,7 @@ const CICDIntegrations: React.FC<Props> = ({
                     <span className="text-gray-400">•</span>
                     <div className="flex items-center space-x-1">
                       <i className="fas fa-clock text-blue-500"></i>
-                      <span>hace 2 horas</span>
+                      <span>{hasRelaunched ? 'hace 1 minuto' : 'hace 2 horas'}</span>
                     </div>
                   </div>
                   <div className="flex items-center space-x-1">
@@ -209,9 +219,9 @@ const CICDIntegrations: React.FC<Props> = ({
                 <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-1">
                     <i className="fas fa-commit text-gray-400"></i>
-                    <span className="font-mono">a1b2c3d</span>
+                    <span className="font-mono">{hasRelaunched ? 'f9e8d7c' : 'a1b2c3d'}</span>
                     <span>•</span>
-                    <span>"Fix: Update test configuration"</span>
+                    <span>{hasRelaunched ? '"Relanzado desde qark.app, Gracias!"' : '"Fix: Update test configuration"'}</span>
                   </div>
                 </div>
               </div>
@@ -226,13 +236,13 @@ const CICDIntegrations: React.FC<Props> = ({
           <div className="text-sm text-blue-800 dark:text-blue-200">
             Consulta nuestra documentación y elige la forma de integrarte que más te convenga.
           </div>
-          <button
-            onClick={handleDocsClick}
+          <a
+            href="/contact"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 flex items-center space-x-2 whitespace-nowrap"
           >
             <i className="fas fa-book"></i>
             <span>Ver docs</span>
-          </button>
+          </a>
         </div>
       </div>
 

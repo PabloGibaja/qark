@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation';
+import Terms from '../components/Terms';
+import Footer from '../components/Footer';
+import '../styles/global.css';
+---
+
+<Layout title="Términos de Uso - QArk">
+  <Navigation client:load />
+  <Terms client:load />
+  <Footer client:load />
+</Layout>

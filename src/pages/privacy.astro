@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation';
+import Privacy from '../components/Privacy';
+import Footer from '../components/Footer';
+import '../styles/global.css';
+---
+
+<Layout title="Política de Privacidad - QArk">
+  <Navigation client:load />
+  <Privacy client:load />
+  <Footer client:load />
+</Layout>

@@ -66,15 +66,15 @@ const Navigation: React.FC = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg border-b border-gray-200 dark:border-gray-700' 
+        ? 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm shadow-lg border-b border-gray-200 dark:border-gray-700' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo con icono */}
           <div className="flex items-center">
-            <button 
-              onClick={() => scrollToSection('hero')}
+            <a 
+              href="/"
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity group"
             >
               {/* Icono de la app */}
@@ -92,7 +92,7 @@ const Navigation: React.FC = () => {
               <span className="text-2xl font-bold gradient-text">
                 QArk
               </span>
-            </button>
+            </a>
           </div>
 
           {/* Desktop Menu - CENTRADO */}
@@ -164,12 +164,12 @@ const Navigation: React.FC = () => {
             </button>
             
             {/* CTA Button */}
-            <button 
-              onClick={() => scrollToSection('cta')}
+            <a 
+              href="/contact"
               className="bg-gradient-qark text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md hover:shadow-lg"
             >
               Get Started
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -221,7 +221,7 @@ const Navigation: React.FC = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden transition-all duration-300 overflow-hidden ${
         isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-      } bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700`}>
+      } bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700`}>
         <div className="px-4 py-4 space-y-1">
           <button 
             onClick={() => scrollToSection('features')}

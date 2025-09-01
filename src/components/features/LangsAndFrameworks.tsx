@@ -28,13 +28,13 @@ interface Language {
 
 // Datos de lenguajes (8 lenguajes en 2 filas de 4) - ACTUALIZADOS
 const languages: Language[] = [
-  { id: 'csharp', name: 'C#', image: '/images/languages/c.png' },
+  { id: 'csharp', name: 'C#', image: '/images/languages/csharp.svg' },
   { id: 'java', name: 'Java', image: '/images/languages/java.svg'},
   { id: 'python', name: 'Python', image: '/images/languages/python.png'},
   { id: 'javascript', name: 'JavaScript', image: '/images/languages/JavaScript.png' },
   { id: 'typescript', name: 'TypeScript', image: '/images/languages/Typescript.png' },
-  { id: 'php', name: 'PHP', image: '/images/languages/php.png' },
-  { id: 'ruby', name: 'Ruby', image: '/images/languages/Ruby.png' },
+  { id: 'php', name: 'PHP', image: '/images/languages/php.svg' },
+  { id: 'ruby', name: 'Ruby', image: '/images/languages/ruby.svg' },
   { id: 'kotlin', name: 'Kotlin', image: '/images/languages/Kotlin.png' }
 ];
 
@@ -279,12 +279,12 @@ const LangsAndFrameworks: React.FC<Props> = ({ onContactRequest }) => {
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     No encontramos "{debouncedSearch}"
                   </p>
-                  <button
-                    onClick={() => handleContactRequest(debouncedSearch)}
-                    className="bg-qark-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+                  <a
+                    href="/contact"
+                    className="bg-qark-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium inline-block text-center"
                   >
                     Solicitar soporte
-                  </button>
+                  </a>
                 </div>
               )}
             </div>
@@ -326,12 +326,12 @@ const LangsAndFrameworks: React.FC<Props> = ({ onContactRequest }) => {
         {/* Texto de contacto - alineado a la derecha */}
         <div className="flex justify-end text-sm text-gray-500 dark:text-gray-400">
           ¿No encuentras tu framework? 
-          <button 
-            onClick={() => handleContactRequest('framework personalizado')}
+          <a 
+            href="/contact"
             className="text-qark-blue hover:text-qark-teal underline ml-1 transition-colors duration-300"
           >
             Contáctanos
-          </button>
+          </a>
         </div>
       </div>
 
