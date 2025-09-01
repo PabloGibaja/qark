@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
             {/* Logos de integraciones */}
             <div className="">
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3 lg:mb-4 font-medium">
-                Compatible con la mayoria de herramientas utilizadas en el mundo del desarrollo
+                Compatible con las herramientas de software más utilizadas
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 lg:gap-6 opacity-60 hover:opacity-80 transition-opacity duration-300">
                 {/* GitHub */}

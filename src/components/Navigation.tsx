@@ -248,12 +248,12 @@ const Navigation: React.FC = () => {
             Pricing
           </button>
           <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-            <button 
-              onClick={() => scrollToSection('cta')}
-              className="block w-full bg-gradient-qark text-white px-4 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md"
+            <a 
+              href="/contact"
+              className="block w-full bg-gradient-qark text-white px-4 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md text-center"
             >
               Get Started
-            </button>
+            </a>
           </div>
         </div>
       </div>
