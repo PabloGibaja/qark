@@ -23,7 +23,7 @@ const CTA: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center items-center mb-8">
             {/* Botón primario - Demo */}
             <a 
-              href="/contact"
+              href="/contact?source=demo"
               className="group bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 lg:px-8 py-3 lg:py-4 rounded-xl text-base lg:text-lg font-bold hover:from-blue-700 hover:to-teal-700 transition-all duration-300 inline-flex items-center justify-center shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 hover:scale-105 min-w-[240px] sm:min-w-[280px]"
             >
               <span className="mr-3 text-xl group-hover:animate-bounce">🚀</span>

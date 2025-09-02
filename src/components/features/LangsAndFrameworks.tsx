@@ -69,7 +69,8 @@ const frameworks: Framework[] = [
   { id: 'reqnroll', name: 'Reqnroll', image: '/images/frameworks/reqnroll.png', supported: true },
   { id: 'scalatest', name: 'ScalaTest', image: '/images/frameworks/scalatest.gif', supported: true },
   { id: 'spock', name: 'Spock', image: '/images/frameworks/spock.png', supported: true },
-  { id: 'vividus', name: 'Vividus', image: '/images/frameworks/vividus.png', supported: true }
+  { id: 'vividus', name: 'Vividus', image: '/images/frameworks/vividus.png', supported: true },
+  { id: 'selenium', name: 'Selenium', image: '/images/frameworks/selenium.svg', supported: true },
 ];
 
 // Hook para debounce

@@ -98,30 +98,30 @@ const Navigation: React.FC = () => {
           {/* Desktop Menu - CENTRADO */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-center space-x-8">
-              <button 
-                onClick={() => scrollToSection('features')}
+              <a 
+                href="/#features"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
                 Features
-              </button>
-              <button 
-                onClick={() => scrollToSection('how-it-works')}
+              </a>
+              <a 
+                href="/#how-it-works"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
                 How it Works
-              </button>
-              <button 
-                onClick={() => scrollToSection('benefits')}
+              </a>
+              <a 
+                href="/#benefits"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
                 Benefits
-              </button>
-              <button 
-                onClick={() => scrollToSection('pricing')}
+              </a>
+              <a 
+                href="/#pricing"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
                 Pricing
-              </button>
+              </a>
             </div>
           </div>
 
@@ -223,30 +223,30 @@ const Navigation: React.FC = () => {
         isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       } bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700`}>
         <div className="px-4 py-4 space-y-1">
-          <button 
-            onClick={() => scrollToSection('features')}
+          <a 
+            href="/#features"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
             Features
-          </button>
-          <button 
-            onClick={() => scrollToSection('how-it-works')}
+          </a>
+          <a 
+            href="/#how-it-works"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
             How it Works
-          </button>
-          <button 
-            onClick={() => scrollToSection('benefits')}
+          </a>
+          <a 
+            href="/#benefits"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
             Benefits
-          </button>
-          <button 
-            onClick={() => scrollToSection('pricing')}
+          </a>
+          <a 
+            href="/#pricing"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
             Pricing
-          </button>
+          </a>
           <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
             <a 
               href="/contact"

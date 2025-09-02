@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               <ul className="space-y-2">
                 <li>
                   <a 
-                    href="#hero" 
+                    href="/#hero" 
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus:text-gray-900 dark:focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950 rounded px-1"
                     title="Ir a la sección de inicio"
                   >
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="#features" 
+                    href="/#features" 
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus:text-gray-900 dark:focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950 rounded px-1"
                     title="Ver las funcionalidades de QArk"
                   >
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="#how-it-works" 
+                    href="/#how-it-works" 
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus:text-gray-900 dark:focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950 rounded px-1"
                     title="Descubre cómo funciona QArk"
                   >
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="#pricing" 
+                    href="/#pricing" 
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus:text-gray-900 dark:focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950 rounded px-1"
                     title="Ver planes y precios"
                   >
