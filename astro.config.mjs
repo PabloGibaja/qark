@@ -15,5 +15,10 @@ export default defineConfig({
   output: 'static',
   build: {
     assets: 'assets'
+  },
+  vite: {
+    define: {
+      'import.meta.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY)
+    }
   }
 });

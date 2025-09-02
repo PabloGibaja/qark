@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,14 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [showDemoMessage, setShowDemoMessage] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [honeypot, setHoneypot] = useState({
+    website: '', // Campo honeypot común
+    phone: '',   // Otro campo honeypot
+    url: ''      // Tercer campo honeypot
+  });
+  const formStartTime = useRef<number>(0);
+  const minFormTime = 3000; // Mínimo 3 segundos para completar el formulario
 
   useEffect(() => {
     // Verificar si viene del botón de demo
@@ -15,6 +23,9 @@ const Contact: React.FC = () => {
     if (urlParams.get('source') === 'demo') {
       setShowDemoMessage(true);
     }
+    
+    // Registrar tiempo de inicio del formulario
+    formStartTime.current = Date.now();
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -25,11 +36,109 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleHoneypotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setHoneypot(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const validateForm = (): { isValid: boolean; error?: string } => {
+    // Verificar honeypots - si alguno tiene valor, es un bot
+    if (honeypot.website || honeypot.phone || honeypot.url) {
+      console.warn('Bot detected: Honeypot field filled');
+      return { isValid: false, error: 'Formulario inválido. Por favor, inténtalo de nuevo.' };
+    }
+
+    // Verificar tiempo mínimo de completado
+    const formCompletionTime = Date.now() - formStartTime.current;
+    if (formCompletionTime < minFormTime) {
+      console.warn('Bot detected: Form submitted too quickly', formCompletionTime);
+      return { isValid: false, error: 'Por favor, tómate un momento para revisar tu mensaje antes de enviarlo.' };
+    }
+
+    // Validaciones básicas de contenido
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      return { isValid: false, error: 'Por favor, completa todos los campos obligatorios.' };
+    }
+
+    // Validar email básico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return { isValid: false, error: 'Por favor, introduce un email válido.' };
+    }
+
+    // Verificar que el mensaje no sea demasiado corto (posible spam)
+    if (formData.message.trim().length < 10) {
+      return { isValid: false, error: 'Por favor, proporciona más detalles en tu mensaje.' };
+    }
+
+    return { isValid: true };
+  };
+
+  const sendEmail = async (): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message,
+          honeypot: honeypot,
+          formTime: Date.now() - formStartTime.current,
+          isDemo: showDemoMessage
+        })
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        console.log('Email sent successfully:', result);
+        return { success: true };
+      } else {
+        console.error('Error sending email:', result.error);
+        return { success: false, error: result.error || 'Error desconocido' };
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      return { success: false, error: 'Error de conexión. Verifica tu internet.' };
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío del formulario
-    console.log('Form submitted:', formData);
-    alert('¡Gracias por contactarnos! Te responderemos pronto.');
+    
+    const validation = validateForm();
+    if (!validation.isValid) {
+      alert(validation.error);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await sendEmail();
+      
+      if (result.success) {
+        alert('¡Gracias por contactarnos! Te responderemos pronto.');
+        // Resetear formulario
+        setFormData({ name: '', email: '', company: '', message: '' });
+        setHoneypot({ website: '', phone: '', url: '' });
+        formStartTime.current = Date.now();
+      } else {
+        alert(`Error al enviar el mensaje: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('Error in form submission:', error);
+      alert('Hubo un error inesperado. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,6 +171,9 @@ const Contact: React.FC = () => {
                   <p className="text-blue-800 dark:text-blue-200">
                     Debido a la alta demanda de demos, por favor contacta para obtener tu enlace personalizado.
                   </p>
+                  <p className="text-blue-800 dark:text-blue-200">
+                    Te enviaremos un email con el link y credenciales para acceder a tu demo cuando esté lista.
+                  </p>
                 </div>
               </div>
             </div>
@@ -75,6 +187,40 @@ const Contact: React.FC = () => {
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Campos Honeypot - Ocultos para usuarios reales */}
+                <div className="hidden">
+                  <label htmlFor="website">Website (no llenar):</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={honeypot.website}
+                    onChange={handleHoneypotChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                  <label htmlFor="phone">Phone (no llenar):</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={honeypot.phone}
+                    onChange={handleHoneypotChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                  <label htmlFor="url">URL (no llenar):</label>
+                  <input
+                    type="text"
+                    id="url"
+                    name="url"
+                    value={honeypot.url}
+                    onChange={handleHoneypotChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Nombre completo *
@@ -88,6 +234,7 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     placeholder="Tu nombre"
+                    autoComplete="name"
                   />
                 </div>
 
@@ -104,6 +251,7 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     placeholder="tu@email.com"
+                    autoComplete="email"
                   />
                 </div>
 
@@ -119,6 +267,7 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     placeholder="Tu empresa"
+                    autoComplete="organization"
                   />
                 </div>
 
@@ -140,9 +289,24 @@ const Contact: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform ${
+                    isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed text-gray-200' 
+                      : 'bg-gradient-to-r from-blue-600 to-teal-600 text-white hover:from-blue-700 hover:to-teal-700 hover:scale-105'
+                  }`}
                 >
-                  Enviar mensaje
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center">
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Enviando...
+                    </span>
+                  ) : (
+                    'Enviar mensaje'
+                  )}
                 </button>
               </form>
             </div>
