@@ -102,25 +102,25 @@ const Navigation: React.FC = () => {
                 href="/#features"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
-                Features
+                Funcionalidades
               </a>
               <a 
                 href="/#how-it-works"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
-                How it Works
+                Cómo funciona
               </a>
               <a 
                 href="/#benefits"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
-                Benefits
+                Beneficios
               </a>
               <a 
                 href="/#pricing"
                 className="text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal transition-colors font-medium"
               >
-                Pricing
+                Precio
               </a>
             </div>
           </div>
@@ -165,10 +165,10 @@ const Navigation: React.FC = () => {
             
             {/* CTA Button */}
             <a 
-              href="/contact"
+              href="/contact?source=demo"
               className="bg-gradient-qark text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md hover:shadow-lg"
             >
-              Get Started
+              Prueba la demo
             </a>
           </div>
 
@@ -227,32 +227,32 @@ const Navigation: React.FC = () => {
             href="/#features"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
-            Features
+            Funcionalidades
           </a>
           <a 
             href="/#how-it-works"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
-            How it Works
+            Cómo funciona
           </a>
           <a 
             href="/#benefits"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
-            Benefits
+            Beneficios
           </a>
           <a 
             href="/#pricing"
             className="block w-full text-left py-3 px-4 text-gray-600 dark:text-gray-300 hover:text-qark-blue dark:hover:text-qark-teal hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors font-medium"
           >
-            Pricing
+            Precio
           </a>
           <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
             <a 
-              href="/contact"
+              href="/contact?source=demo"
               className="block w-full bg-gradient-qark text-white px-4 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md text-center"
             >
-              Get Started
+              Prueba la demo
             </a>
           </div>
         </div>
