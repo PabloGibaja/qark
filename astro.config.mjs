@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,13 +13,9 @@ export default defineConfig({
       applyBaseStyles: false, // Para usar nuestros estilos personalizados
     })
   ],
-  output: 'static',
+  output: 'server', // ✅ Cambiar a server
+  adapter: vercel({}), // ✅ Añadir adapter de Vercel
   build: {
     assets: 'assets'
-  },
-  vite: {
-    define: {
-      'import.meta.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY)
-    }
   }
 });
