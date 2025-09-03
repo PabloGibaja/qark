@@ -58,7 +58,22 @@ const Contact: React.FC = () => {
       return { isValid: false, error: 'Por favor, tómate un momento para revisar tu mensaje antes de enviarlo.' };
     }
 
-    // Validaciones básicas de contenido
+    // Validaciones para demo (solo email requerido)
+    if (showDemoMessage) {
+      if (!formData.email.trim()) {
+        return { isValid: false, error: 'Por favor, introduce tu email para acceder a la demo.' };
+      }
+      
+      // Validar email básico
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        return { isValid: false, error: 'Por favor, introduce un email válido.' };
+      }
+      
+      return { isValid: true };
+    }
+
+    // Validaciones básicas de contenido para contacto normal
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       return { isValid: false, error: 'Por favor, completa todos los campos obligatorios.' };
     }
@@ -222,18 +237,23 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Nombre completo *
+                  <label htmlFor="name" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
+                    showDemoMessage ? 'opacity-50' : ''
+                  }`}>
+                    Nombre completo {!showDemoMessage && '*'}
                   </label>
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    required
+                    required={!showDemoMessage}
+                    disabled={showDemoMessage}
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Tu nombre"
+                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    placeholder={showDemoMessage ? "No requerido para demo" : "Tu nombre"}
                     autoComplete="name"
                   />
                 </div>
@@ -250,40 +270,50 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="tu@email.com"
+                    placeholder={showDemoMessage ? "tu@email.com (para enviarte el acceso a la demo)" : "tu@email.com"}
                     autoComplete="email"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="company" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
+                    showDemoMessage ? 'opacity-50' : ''
+                  }`}>
                     Empresa
                   </label>
                   <input
                     type="text"
                     id="company"
                     name="company"
+                    disabled={showDemoMessage}
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Tu empresa"
+                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    placeholder={showDemoMessage ? "Opcional para demo" : "Tu empresa"}
                     autoComplete="organization"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Mensaje *
+                  <label htmlFor="message" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
+                    showDemoMessage ? 'opacity-50' : ''
+                  }`}>
+                    Mensaje {!showDemoMessage && '*'}
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    required
+                    required={!showDemoMessage}
+                    disabled={showDemoMessage}
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="Cuéntanos cómo podemos ayudarte..."
+                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    placeholder={showDemoMessage ? "No requerido para demo" : "Cuéntanos cómo podemos ayudarte..."}
                   />
                 </div>
 
@@ -302,10 +332,10 @@ const Contact: React.FC = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Enviando...
+                      {showDemoMessage ? 'Solicitando demo...' : 'Enviando...'}
                     </span>
                   ) : (
-                    'Enviar mensaje'
+                    showDemoMessage ? 'Solicitar acceso a la demo' : 'Enviar mensaje'
                   )}
                 </button>
               </form>
