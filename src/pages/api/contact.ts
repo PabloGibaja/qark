@@ -26,11 +26,22 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Validaciones básicas
-    if (!name || !email || !message) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    if (isDemo) {
+      // Para demo solo requerimos email
+      if (!email) {
+        return new Response(JSON.stringify({ error: 'Email is required for demo access' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    } else {
+      // Para contacto normal requerimos name, email y message
+      if (!name || !email || !message) {
+        return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
     }
 
     // Enviar email usando Resend
@@ -53,18 +64,26 @@ export const POST: APIRoute = async ({ request }) => {
             </h2>
             
             <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p><strong>👤 Nombre:</strong> ${name}</p>
+              <p><strong>👤 Nombre:</strong> ${name || 'No proporcionado (demo)'}</p>
               <p><strong>📧 Email:</strong> <a href="mailto:${email}">${email}</a></p>
               <p><strong>🏢 Empresa:</strong> ${company || 'No especificada'}</p>
               <p><strong>📝 Tipo:</strong> ${isDemo ? 'Solicitud de Demo' : 'Contacto General'}</p>
             </div>
             
+            ${!isDemo && message ? `
             <div style="margin: 20px 0;">
               <h3 style="color: #1f2937;">💬 Mensaje:</h3>
               <div style="background: white; padding: 15px; border-left: 4px solid #2563eb; border-radius: 4px;">
                 ${message.replace(/\n/g, '<br>')}
               </div>
             </div>
+            ` : `
+            <div style="margin: 20px 0; background: #dbeafe; padding: 15px; border-radius: 8px;">
+              <h3 style="color: #1e40af;">🚀 Solicitud de Demo</h3>
+              <p style="color: #1e3a8a; margin: 5px 0;">El usuario ha solicitado acceso a la demo de QArk.</p>
+              <p style="color: #1e3a8a; margin: 5px 0;"><strong>Próximos pasos:</strong> Enviar credenciales de acceso a la demo.</p>
+            </div>
+            `}
             
             <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;">
             
