@@ -160,35 +160,36 @@ const Contact: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Contacta con nosotros
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              ¿Tienes preguntas sobre QArk? Estamos aquí para ayudarte.
-            </p>
-          </div>
+          {/* Header - Solo mostrar si NO es demo */}
+          {!showDemoMessage && (
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                Contacta con nosotros
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                ¿Tienes preguntas sobre QArk? Estamos aquí para ayudarte.
+              </p>
+            </div>
+          )}
 
-          {/* Demo Message */}
+          {/* Demo Message - Ahora es el contenido principal para demo */}
           {showDemoMessage && (
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                    Solicitud de Demo
-                  </h3>
-                  <p className="text-blue-800 dark:text-blue-200">
-                    Debido a la alta demanda de demos, por favor contacta para obtener tu enlace personalizado.
-                  </p>
-                  <p className="text-blue-800 dark:text-blue-200">
-                    Te enviaremos un email con el link y credenciales para acceder a tu demo cuando esté lista.
-                  </p>
+            <div className="text-center mb-12">
+              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-2xl mx-auto">
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0">
+                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-blue-800 dark:text-blue-200 mb-3">
+                      Debido a la alta demanda de demos, por favor contacta para obtener tu enlace personalizado.
+                    </p>
+                    <p className="text-blue-800 dark:text-blue-200">
+                      Te enviaremos un email con el link y credenciales para acceder a tu demo cuando esté lista.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,9 +198,11 @@ const Contact: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Formulario */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Envíanos un mensaje
-              </h2>
+              {!showDemoMessage && (
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Envíanos un mensaje
+                </h2>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Campos Honeypot - Ocultos para usuarios reales */}
@@ -236,27 +239,27 @@ const Contact: React.FC = () => {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="name" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
-                    showDemoMessage ? 'opacity-50' : ''
-                  }`}>
-                    Nombre completo {!showDemoMessage && '*'}
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required={!showDemoMessage}
-                    disabled={showDemoMessage}
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                    placeholder={showDemoMessage ? "No requerido para demo" : "Tu nombre"}
-                    autoComplete="name"
-                  />
-                </div>
+                {/* Solo mostrar campos adicionales si NO es demo */}
+                {!showDemoMessage && (
+                  <>
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Nombre completo *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        placeholder="Tu nombre"
+                        autoComplete="name"
+                      />
+                    </div>
+                  </>
+                )}
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -270,52 +273,47 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder={showDemoMessage ? "tu@email.com (para enviarte el acceso a la demo)" : "tu@email.com"}
+                    placeholder={showDemoMessage ? "" : "tu@email.com"}
                     autoComplete="email"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="company" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
-                    showDemoMessage ? 'opacity-50' : ''
-                  }`}>
-                    Empresa
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    disabled={showDemoMessage}
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                    placeholder={showDemoMessage ? "Opcional para demo" : "Tu empresa"}
-                    autoComplete="organization"
-                  />
-                </div>
+                {/* Solo mostrar campos adicionales si NO es demo */}
+                {!showDemoMessage && (
+                  <>
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Empresa
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        placeholder="Tu empresa"
+                        autoComplete="organization"
+                      />
+                    </div>
 
-                <div>
-                  <label htmlFor="message" className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${
-                    showDemoMessage ? 'opacity-50' : ''
-                  }`}>
-                    Mensaje {!showDemoMessage && '*'}
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required={!showDemoMessage}
-                    disabled={showDemoMessage}
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                      showDemoMessage ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                    placeholder={showDemoMessage ? "No requerido para demo" : "Cuéntanos cómo podemos ayudarte..."}
-                  />
-                </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Mensaje *
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        required
+                        rows={5}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        placeholder="Cuéntanos cómo podemos ayudarte..."
+                      />
+                    </div>
+                  </>
+                )}
 
                 <button
                   type="submit"
