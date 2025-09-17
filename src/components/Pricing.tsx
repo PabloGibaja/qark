@@ -7,7 +7,7 @@ const Pricing: React.FC = () => {
     {
       id: 1,
       name: "Starter",
-      price: "39€",
+      price: "€",
       period: "mes",
       description: "Perfecto para equipos pequeños que empiezan con QArk",
       features: [
@@ -24,7 +24,7 @@ const Pricing: React.FC = () => {
     {
       id: 2,
       name: "Professional",
-      price: "99€",
+      price: "€",
       period: "mes",
       description: "Para equipos grandes que necesitan funcionalidades avanzadas",
       features: [
