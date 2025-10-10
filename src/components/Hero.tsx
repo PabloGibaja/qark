@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center lg:justify-start mb-8 lg:mb-12">
               {/* Botón primario */}
               <a 
-                href="/contact?source=demo"
+                href="https://demo.qark.app"
                 className="group bg-gradient-qark text-white px-6 lg:px-8 py-3 lg:py-4 rounded-lg text-base lg:text-lg font-semibold hover:opacity-90 transition-all duration-300 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 <span className="mr-2 text-lg lg:text-xl group-hover:animate-bounce">🚀</span>

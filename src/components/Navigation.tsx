@@ -165,7 +165,7 @@ const Navigation: React.FC = () => {
             
             {/* CTA Button */}
             <a 
-              href="/contact?source=demo"
+              href="https://demo.qark.app"
               className="bg-gradient-qark text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md hover:shadow-lg"
             >
               Prueba la demo
@@ -249,7 +249,7 @@ const Navigation: React.FC = () => {
           </a>
           <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
             <a 
-              href="/contact?source=demo"
+              href="https://demo.qark.app"
               className="block w-full bg-gradient-qark text-white px-4 py-3 rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md text-center"
             >
               Prueba la demo
